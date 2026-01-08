@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Right Heart | Portfolio</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+  <style>
+    /* BASIC RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      color: #333;
+      background: #f9f9ff;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    /* NAVIGATION */
+    .nav {
+      background: #2a2a4a;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      font-size: 1.1rem;
+    }
+
+    .nav a:hover {
+      color: #b6b8ff;
+    }
+
+    /* FLOATING HEARTS */
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      width: 14px;
+      height: 14px;
+      background: rgba(190, 180, 255, 0.3);
+      transform: rotate(45deg);
+      animation: floatUp linear forwards;
+      box-shadow: 0 0 5px rgba(190,180,255,0.2),
+                  0 0 10px rgba(190,180,255,0.1),
+                  0 0 15px rgba(190,180,255,0.05);
+      border-radius: 3px;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: inherit;
+      border-radius: 50%;
+      box-shadow: inherit;
+    }
+
+    .heart::before { top: -7px; left: 0; }
+    .heart::after { left: -7px; top: 0; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(45deg); opacity: 0.8; }
+      100% { transform: translateY(-120vh) rotate(45deg); opacity: 0; }
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* SUBTLE BACKGROUND PATTERN */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle, rgba(190, 180, 255, 0.05) 10%, transparent 10%);
+      background-size: 40px 40px;
+      z-index: -1;
+    }
+
+    /* HEADINGS */
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      color: #2a2a4a;
+    }
+
+    h1 { font-size: 3.5rem; font-weight: 700; }
+    h2 { font-size: 2.5rem; font-weight: 600; margin-bottom: 25px; }
+
+    p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    /* SECTIONS */
+    section { padding: 80px 0; position: relative; z-index: 1; }
+
+    /* HERO */
+    .hero {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #e8e9ff 0%, #cfcfff 100%);
+      color: #2a2a4a;
+      padding: 0 20px;
+    }
+
+    .hero p {
+      margin-top: 20px;
+      font-size: 1.4rem;
+      color: #4a4a6a;
+      max-width: 800px;
+    }
+
+    /* ABOUT & VISION */
+    .about, .vision { text-align: center; }
+    .about p, .vision p { max-width: 800px; margin: 0 auto; }
+
+    .vision {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(150, 150, 255, 0.08);
+      padding: 60px 40px;
+      margin: 0 20px;
+    }
+
+    /* SECRET POP-UP BOXES */
+    .secret-box {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 105, 180, 0.8);
+      border-radius: 50%;
+      cursor: pointer;
+      animation: popIn 0.5s ease-out;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 20px;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .secret-box:hover { transform: scale(1.2); }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* MODALS */
+    #secret-modal, #easter-egg {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, rgba(255, 240, 245, 0.95), rgba(255, 182, 193, 0.95));
+      padding: 50px;
+      border-radius: 30px;
+      box-shadow: 0 0 30px rgba(255, 105, 180, 0.6), 0 0 60px rgba(255, 105, 180, 0.3);
+      text-align: center;
+      display: none;
+      z-index: 1000;
+      border: 1px solid #ffb6c1;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      max-width: 90%;
+      width: 400px;
+    }
+
+    #secret-modal h3, #easter-egg h3 {
+      font-family: 'Playfair Display', serif;
+      color: #ff1493;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    #easter-egg h3 { font-size: 2.5rem; }
+    #easter-egg h3 span { display: inline-block; animation: pulse 1.5s infinite; }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    #secret-modal p, #easter-egg p {
+      color: #c71585;
+      font-style: italic;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    #close-secret, #close-egg {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #ff69b4;
+      color: #fff;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 1rem;
+    }
+
+    #close-secret:hover, #close-egg:hover { background: #ff1493; }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      background: #2a2a4a;
+      color: #fff;
+    }
+
+    footer p { color: #cfcfff; }
+    footer span { color: #b6b8ff; font-weight: 600; }
+
+    /* ===================================
+       MEDIA QUERIES - ALL DEVICES
+    =================================== */
+
+    @media (max-width: 1199px) {
+      .container { max-width: 960px; }
+      h1 { font-size: 3.2rem; }
+    }
+
+    @media (max-width: 991px) {
+      .container { max-width: 720px; }
+      h1 { font-size: 2.8rem; }
+      h2 { font-size: 2.3rem; }
+      .hero p { font-size: 1.3rem; }
+      section { padding: 70px 0; }
+      .vision { padding: 50px 30px; }
+    }
+
+    @media (max-width: 767px) {
+      .container { padding: 0 15px; }
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2.1rem; }
+      .hero { min-height: 70vh; }
+      .hero p { font-size: 1.2rem; }
+      section { padding: 60px 0; }
+      .vision { padding: 40px 25px; margin: 0 15px; }
+      .nav ul { gap: 20px; }
+      .nav a { font-size: 1rem; }
+    }
+
+    @media (max-width: 575px) {
+      h1 { font-size: 2.2rem; }
+      h2 { font-size: 1.9rem; }
+      .hero p { font-size: 1.1rem; max-width: 90%; }
+      p { font-size: 1rem; }
+      section { padding: 50px 0; }
+      .vision { padding: 35px 20px; margin: 0 10px; }
+      .nav ul { gap: 15px; padding: 0 10px; }
+      .nav a { font-size: 0.95rem; }
+
+      .secret-box {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+      }
+
+      #secret-modal, #easter-egg {
+        padding: 30px 20px;
+        width: 92%;
+      }
+
+      #secret-modal h3, #easter-egg h3 {
+        font-size: 1.8rem;
+      }
+
+      #easter-egg h3 { font-size: 2.1rem; }
+    }
+
+    @media (max-width: 380px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.7rem; }
+      .hero p { font-size: 1rem; }
+      .secret-box { width: 32px; height: 32px; font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="container">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="our-love.html">Our Love</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- FLOATING HEARTS -->
+  <div class="hearts"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>My Right Heart</h1>
+      <p>Building a future of love, hope, and care for children</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <div class="container">
+      <h2>About Her</h2>
+      <p>
+        She is warmth in human form — driven by kindness, empathy,
+        and a dream to create a home for children who need love the most.
+      </p>
+    </div>
+  </section>
+
+  <!-- VISION -->
+  <section class="vision-section">
+    <div class="container">
+      <div class="vision">
+        <h2>Her Vision</h2>
+        <p>
+          To open an orphanage where every child feels safe, valued,
+          and loved as family — not forgotten.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EASTER EGG MODAL -->
+  <div id="easter-egg">
+    <h3>I Love You <span>💖</span></h3>
+    <p>Forever and always, my right heart. You are the light of my life, the rhythm in my soul, and the love that makes every day beautiful.</p>
+    <button id="close-egg">Close</button>
+  </div>
+
+  <!-- SECRET MODAL -->
+  <div id="secret-modal">
+    <h3>Your Secret 💋</h3>
+    <p id="secret-message"></p>
+    <button id="close-secret">Close</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>Built for <span>My Right Heart</span> 💖🖤</p>
+    </div>
+  </footer>
+
+  <script>
+    // FLOATING HEARTS
+    const heartsContainer = document.querySelector(".hearts");
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 6 + Math.random() * 6 + "s";
+      heart.style.opacity = Math.random() * 0.4 + 0.1;
+
+      const size = 8 + Math.random() * 12;
+      heart.style.width = size + "px";
+      heart.style.height = size + "px";
+
+      const glow = 3 + Math.random() * 7;
+      heart.style.boxShadow = `
+        0 0 ${glow}px rgba(190,180,255,0.2),
+        0 0 ${glow*2}px rgba(190,180,255,0.1),
+        0 0 ${glow*3}px rgba(190,180,255,0.05)
+      `;
+
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 12000);
+    }
+
+    setInterval(createHeart, 800);
+
+    // EASTER EGG: Type "ILOVEYOU"
+    let keysPressed = [];
+    const secretCode = ['I', 'L', 'O', 'V', 'E', 'Y', 'O', 'U'];
+
+    document.addEventListener('keydown', (event) => {
+      keysPressed.push(event.key.toUpperCase());
+      if (keysPressed.length > secretCode.length) keysPressed.shift();
+      if (keysPressed.join('') === secretCode.join('')) {
+        const egg = document.getElementById('easter-egg');
+        egg.style.display = 'block';
+        setTimeout(() => egg.style.opacity = '1', 10);
+      }
+    });
+
+    document.getElementById('close-egg').addEventListener('click', () => {
+      const egg = document.getElementById('easter-egg');
+      egg.style.opacity = '0';
+      setTimeout(() => egg.style.display = 'none', 500);
+    });
+
+    // ROMANTIC SECRET MESSAGES (tender & loving)
+    const secrets = [
+       "I crave the taste of your lips, the way your touch sets my soul on fire. Can't wait to make you moan my name. 💜",
+      "I fall in love with you all over again every single day — deeper, quieter, forever. 💞",
+      "Your eyes sparkle like stars, but it's your passion that makes me ache for you all night long. 🌅",
+       "You turn me on just by being you. Let's lose ourselves in each other, skin to skin, heart to heart.. 🤗",
+      "Imagine my hands on your thighs, pulling you closer... our secret nights are my favorite fantasy. 🕊️",
+        "Let's create our own heatwave tonight – clothes optional, desire mandatory. ✿",
+      "Thinking of you makes everything more beautiful. You are the gentle magic I never knew I needed. ✨",
+       "I want to explore every inch of you slowly, teasing until you beg for more. 🌙",
+      "You are my right heart, my safe place, my greatest adventure, and my sweetest dream come true. 💖",
+        "Thinking of you in that lingerie... let's make tonight unforgettable with whispers and caresses. 💓",
+        "Every time I see you, I imagine our bodies entangled in passion, your breath on my skin...  💋"
+    ];
+
+    function createSecretBox() {
+      const box = document.createElement('div');
+      box.classList.add('secret-box');
+      box.style.top = `${Math.random() * 90 + 5}%`;
+      box.style.left = `${Math.random() * 90 + 5}%`;
+      box.innerHTML = '💌';
+
+      box.addEventListener('click', () => {
+        const randomSecret = secrets[Math.floor(Math.random() * secrets.length)];
+        document.getElementById('secret-message').textContent = randomSecret;
+        const modal = document.getElementById('secret-modal');
+        modal.style.display = 'block';
+        setTimeout(() => modal.style.opacity = '1', 10);
+        box.remove();
+      });
+
+      document.body.appendChild(box);
+
+      setTimeout(() => {
+        if (document.body.contains(box)) box.remove();
+      }, 10000);
+    }
+
+    setInterval(createSecretBox, 5000);
+
+    document.getElementById('close-secret').addEventListener('click', () => {
+      const modal = document.getElementById('secret-modal');
+      modal.style.opacity = '0';
+      setTimeout(() => modal.style.display = 'none', 500);
+    });
+  </script>
+</body>
+</html>

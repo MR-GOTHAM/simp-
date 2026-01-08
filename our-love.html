@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Right Heart | Our Love</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+  <style>
+    /* BASIC RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      color: #333;
+      background: #f9f9ff;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    /* NAVIGATION */
+    .nav {
+      background: #2a2a4a;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover {
+      color: #b6b8ff;
+    }
+
+    /* FLOATING HEARTS */
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      width: 14px;
+      height: 14px;
+      background: rgba(190, 180, 255, 0.3);
+      transform: rotate(45deg);
+      animation: floatUp linear forwards;
+      box-shadow: 0 0 5px rgba(190,180,255,0.2),
+                  0 0 10px rgba(190,180,255,0.1),
+                  0 0 15px rgba(190,180,255,0.05);
+      border-radius: 3px;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: inherit;
+      border-radius: 50%;
+      box-shadow: inherit;
+    }
+
+    .heart::before {
+      top: -7px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -7px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* SUBTLE BACKGROUND PATTERN */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(190, 180, 255, 0.05) 10%, transparent 10%);
+      background-size: 40px 40px;
+      z-index: -1;
+    }
+
+    /* HEADINGS */
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      color: #2a2a4a;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 80px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* OUR LOVE SECTION */
+    .our-love {
+      text-align: center;
+    }
+
+    .our-love p {
+      max-width: 800px;
+      margin: 20px auto 0;
+    }
+
+    /* EASTER EGG */
+    #easter-egg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, rgba(255, 240, 245, 0.95), rgba(255, 182, 193, 0.95));
+      padding: 50px;
+      border-radius: 30px;
+      box-shadow: 0 0 30px rgba(255, 105, 180, 0.6), 0 0 60px rgba(255, 105, 180, 0.3);
+      text-align: center;
+      display: none;
+      z-index: 1000;
+      border: 1px solid #ffb6c1;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    #easter-egg h3 {
+      font-family: 'Playfair Display', serif;
+      color: #ff1493;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    #easter-egg h3 span {
+      display: inline-block;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    #easter-egg p {
+      color: #c71585;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    #close-egg {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #ff69b4;
+      color: #fff;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #close-egg:hover {
+      background: #ff1493;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      background: #2a2a4a;
+      color: #fff;
+    }
+
+    footer p {
+      color: #cfcfff;
+    }
+
+    footer span {
+      color: #b6b8ff;
+      font-weight: 600;
+    }
+
+    /* MEDIA QUERIES */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      section {
+        padding: 60px 0;
+      }
+
+      .nav ul {
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      #easter-egg {
+        padding: 30px;
+        width: 90%;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="container">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="our-love.html">Our Love</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- FLOATING HEARTS -->
+  <div class="hearts"></div>
+
+  <!-- OUR LOVE -->
+  <section class="our-love">
+    <div class="container">
+      <h2>Our Love</h2>
+      <p>
+        Our journey together is built on shared dreams, and unwavering love. 
+        You are my inspiration, my partner in making the world better, and the beat of my heart. 
+        This page is a tribute to you and the beautiful future we're creating. 💖
+      </p>
+    </div>
+  </section>
+
+  <!-- EASTER EGG MODAL -->
+  <div id="easter-egg">
+    <h3>I Love You <span>💖</span></h3>
+    <p>Forever and always, my right heart. You are the light of my life, the rhythm in my soul, and the love that makes every day beautiful.</p>
+    <button id="close-egg">Close</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>Built with eternal love for <span>My Right Heart</span> 💖🖤</p>
+    </div>
+  </footer>
+
+  <script>
+    // FLOATING GLOWING HEARTS
+    const heartsContainer = document.querySelector(".hearts");
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 6 + Math.random() * 6 + "s";
+      heart.style.opacity = Math.random() * 0.4 + 0.1;
+      
+      // random size
+      const size = 8 + Math.random() * 12;
+      heart.style.width = size + "px";
+      heart.style.height = size + "px";
+      
+      // random glow
+      const glow = 3 + Math.random() * 7;
+      heart.style.boxShadow = `
+        0 0 ${glow}px rgba(190,180,255,0.2),
+        0 0 ${glow*2}px rgba(190,180,255,0.1),
+        0 0 ${glow*3}px rgba(190,180,255,0.05)
+      `;
+      
+      heartsContainer.appendChild(heart);
+      
+      setTimeout(() => heart.remove(), 12000);
+    }
+
+    setInterval(createHeart, 800);
+
+    // EASTER EGG: Press 'I' 'L' 'O' 'V' 'E' 'Y' 'O' 'U' to reveal
+    let keysPressed = [];
+    const secretCode = ['I', 'L', 'O', 'V', 'E', 'Y', 'O', 'U'];
+
+    document.addEventListener('keydown', (event) => {
+      keysPressed.push(event.key.toUpperCase());
+      if (keysPressed.length > secretCode.length) {
+        keysPressed.shift();
+      }
+      if (keysPressed.join('') === secretCode.join('')) {
+        const egg = document.getElementById('easter-egg');
+        egg.style.display = 'block';
+        setTimeout(() => {
+          egg.style.opacity = '1';
+        }, 10);
+      }
+    });
+
+    document.getElementById('close-egg').addEventListener('click', () => {
+      const egg = document.getElementById('easter-egg');
+      egg.style.opacity = '0';
+      setTimeout(() => {
+        egg.style.display = 'none';
+      }, 500);
+    });
+  </script>
+</body>
+</html>
+
